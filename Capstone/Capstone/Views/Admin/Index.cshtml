@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_DashboardLayout";
+}
+
+<h2>Messages:</h2>
+<table class="w-100">
+    <tr>
+        <th width="2%">ID</th>
+        <th width="10%">Name</th>
+        <th width="25%">Email</th>
+        <th width="63%">Message</th>
+    </tr>
+    @foreach(Contact c in ViewBag.messages)
+    {
+        <tr>
+            <td>@c.Id</td>
+            <td>@c.Name</td>
+            <td>@c.Email</td>
+            <td>@c.Message</td>
+        </tr>
+    }
+</table>

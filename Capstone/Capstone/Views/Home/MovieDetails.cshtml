@@ -1,0 +1,64 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Root
+
+<div class="mx-auto overflow-hidden border-2 border-black m-2 p-2 rounded bg-gray-400" style="width: 63rem;">
+    <div class="px-4 py-2">
+        <div class="flex gap-8">
+            <div class="w-1/3">
+                <img class="rounded-lg shadow-md" src="@Model.Image" alt="@Model.Title" style="width: 200px; height: 300px;" />
+                <br />
+                <a asp-area="" asp-controller="Home" asp-action="MovieBooking" class="text-center border-2 border-black"> Go back </a>
+            </div>
+            <div class="w-2/3">
+                <div>
+                    <iframe src="@Model.Trailer.LinkEmbed" style="width: 800px; height: 400px;" frameborder="0" allowfullscreen></iframe>
+                    <details class="mt-4 p-2 text-gray-700">
+                        <summary class="font-semibold mb-2 cursor-pointer">Movie information</summary>
+                        <div class="mt-2" style="width: 700px;">
+                            <h3 class="text-center">@Model.Title</h3>
+                            <br />
+                            <strong>Plot: </strong> @Model.Plot
+                            <br />
+                            <br />
+                            <strong>Cast: </strong>
+                                
+                                    @foreach (var actor in Model.StarList)
+                                    {
+                                        <li>@actor.Name </li>
+                                    }
+                               
+                            <br />
+                            <strong>Rating: </strong>@Model.ImDbRating
+                            <br />
+                            <strong>Runnning Time: </strong>@Model.RuntimeMins
+                            <br />
+                            <strong>Director: </strong>
+                            @foreach (var director in Model.DirectorList)
+                            {
+                                @director.Name
+                            }
+                            <br />
+                            <strong>Genre: </strong>
+                            @foreach (var genre in Model.GenreList)
+                            {
+                                @genre.Value @(genre.Equals(Model.GenreList.Last()) ? "" : ", ")
+                            }
+                            <br />
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+        <br />
+        <a asp-area="" asp-controller="Home" asp-action="Movies" class="btn btn-outline-success">Staff Pick</a>
+        <a asp-area="" asp-controller="Home" asp-action="MovieBooking" class="btn btn-outline-success">Book a movie</a>
+    </div>
+
+ </div>
+
+

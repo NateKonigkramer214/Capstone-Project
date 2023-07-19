@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "View Roles";
+}
+<div>
+    <table class="table table-striped table-bordered text-white">
+        <thead>
+            <tr>
+                <td>Email</td>
+                <td>User ID</td>
+                <td>Role Name</td>
+                <td>Role ID</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in ViewBag.users)
+            {
+                <tr>
+                    <td>@row.Email</td>
+                    <td>@row.UserId</td>
+                    <td>@row.RoleName</td>
+                    <td>@row.RoleId</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Index"class="text-white">Back to List</a>
+</div>

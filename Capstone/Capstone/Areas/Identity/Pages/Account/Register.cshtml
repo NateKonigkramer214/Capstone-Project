@@ -1,0 +1,41 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+<div class="flex justify-center items-center min-h-screen">
+    <div class="col-md-4">
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-100">@ViewData["Title"]</h1>
+        <section>
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <hr />
+                <br />
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <label asp-for="Input.Email" class="form-label text-gray-300">Email</label>
+                    <input asp-for="Input.Email" class="form-control w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <span asp-validation-for="Input.Email" class="text-white"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <label asp-for="Input.Password" class="form-label text-gray-300">Password</label>
+                    <input asp-for="Input.Password" class="form-control w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <span asp-validation-for="Input.Password" class="text-white"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <label asp-for="Input.ConfirmPassword" class="form-label text-gray-300">Confirm Password</label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-white"></span>
+                </div>
+                <button id="registerSubmit" type="submit" class="w-full px-4 py-2 text-lg font-medium text-white bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">Register</button>
+                <p class="text-gray-300">Already have an account?<a class="font-bold" id="forgot-password" asp-page="./Login"> Login Here</a></p>
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

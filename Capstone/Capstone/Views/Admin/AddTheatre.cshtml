@@ -1,0 +1,34 @@
+﻿@model Capstone.Models.Theatre
+
+@{
+    ViewData["Title"] = "Add Theatre";
+}
+
+<h1 class="text-white">AddTheatre</h1>
+<br />
+
+<h4 class="text-white">Theatre</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="get">
+            <div class="form-group">
+                <label class="control-label text-white">Row Count: </label>
+                <input type="number" name="RowCount" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label text-white">Seats Per Row: </label>
+                <input type="number" name="SeatsPerRow" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add Theatre" class="btn btn-primary text-white" />
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<br />
+<div>
+    <a asp-action="Index" class="text-white">Back to List</a>
+</div>
+

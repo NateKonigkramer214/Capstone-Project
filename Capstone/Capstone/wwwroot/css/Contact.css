@@ -1,0 +1,28 @@
+﻿#contact-containerID {
+    display: flex;
+    align-items: center;
+}
+
+#image-containerID {
+    flex: 0 0 auto;
+    margin-right: 20px;
+}
+
+#form-containerID {
+    flex: 1 1 auto;
+}
+
+    #form-containerID .form-group {
+        margin-bottom: 15px;
+    }
+
+    #form-containerID label {
+        display: block;
+        text-align: left;
+        margin-bottom: 5px;
+    }
+
+    #form-containerID input,
+    #form-containerID textarea {
+        width: 100%;
+    }

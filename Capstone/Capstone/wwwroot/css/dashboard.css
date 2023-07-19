@@ -1,0 +1,16 @@
+﻿main {
+    background-color: antiquewhite;
+}
+
+a, .nav-link {
+    color:black;
+}
+
+#content {
+    border-left: solid 2px black;
+}
+
+table, th, tr, td {
+    border: 1px solid black;
+    padding: 10px;
+}

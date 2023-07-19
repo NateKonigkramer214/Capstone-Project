@@ -1,0 +1,24 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Register confirmation";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+<h1 class="text-2xl font-bold mb-4 text-gray-100">@ViewData["Title"]</h1>
+@{
+    if (@Model.DisplayConfirmAccountLink)
+    {
+        <p class="mb-4">
+            This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf" class="text-blue-500">these docs</a> for how to configure a real email sender.
+            Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl" class="text-blue-500">Click here to confirm your account</a>
+        </p>
+    }
+    else
+    {
+        <p class="text-gray-200 mb-4">
+            Please check your email to confirm your account.
+        </p>
+    }
+}

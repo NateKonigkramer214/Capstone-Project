@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Capstone</title>
+    <link rel="stylesheet" href="~/css/output.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+<body class="flex flex-col min-h-screen justify-between relative w-full font-nunito">
+    <header class="bg-black p-2">
+        <nav class="flex flex-wrap w-full justify-end lg:py-0 text-lg text-gray-700">
+            <button class="h-6 w-6 mr-2 mt-2 justify-end cursor-pointer lg:hidden z-30" id="menu-button">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="hidden lg:flex lg:w-full lg:items-center lg:justify-between lg:items-center z-20 bg-black rounded" id="menu">
+                <img class="w-[120px] h-[120px]" src="~/Images/logo.png" />
+                <div class="lg:flex">
+                    <div class="px-2">
+                        <a class="text-gray-200 hover:text-gray-300" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </div>
+                    <div class="px-2">
+                        <a class="text-gray-200 hover:text-gray-300" asp-area="" asp-controller="Home" asp-action="Movies">Staff Picks</a>
+                    </div>
+                    <div class="px-2">
+                        <a class="text-gray-200 hover:text-gray-300" asp-area="" asp-controller="Home" asp-action="MovieBooking">In Theatres</a>
+                    </div>
+                </div>
+                <br />
+                <div class="flex items-center">
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="bg-gradient-to-b from-black to-gray-900 flex-grow font-raleway">
+        @RenderBody()
+    </div>
+    <footer class="bg-gray-900 text-gray-200 h-[120px] flex justify-center items-center">
+        <p>Silver Screen © 2023</p>
+    </footer>
+    <script>
+        const button = document.querySelector('#menu-button'); // Hamburger Icon
+        const menu = document.querySelector('#menu'); // Menu
+
+        button.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('absolute');
+        });
+    </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/fontawesome-free-6.4.0-web/js/all.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

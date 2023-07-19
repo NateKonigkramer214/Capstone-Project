@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="lg:flex lg:my-auto">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @if (User.IsInRole("User"))
+        {
+            <li class="px-2 block hover:text-purple-400">
+                <a class="text-gray-200 hover:text-gray-300" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+            </li>
+            <li class="px-2 block hover:text-purple-400">
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button class="text-gray-200 hover:text-gray-300" type="submit">Logout</button>
+                </form>
+            </li>
+        }
+        else
+        {
+            <li class="px-2 block hover:text-purple-400">
+                <a class="text-gray-200 hover:text-gray-300" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+            </li>
+            <li class="px-2 block hover:text-purple-400">
+                <a class="text-gray-200 hover:text-gray-300" asp-area="" asp-controller="Admin" asp-action="Index" title="Admin Dashboard">Admin Dashboard</a>
+            </li>
+            <li class="px-2 block hover:text-purple-400">
+                <a class="text-gray-200 hover:text-gray-300" asp-area="" asp-controller="Role" asp-action="Index" title="Role">Create Roles</a>
+            </li>
+            <li class="px-2 block hover:text-purple-400">
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button class="text-gray-200 hover:text-gray-300" type="submit">Logout</button>
+                </form>
+            </li>
+        }
+    }
+    else
+    {
+        <li class="px-2 block hover:text-purple-400">
+            <a class="text-gray-200 hover:text-gray-300" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="px-2 block hover:text-purple-400">
+            <a class="text-gray-200 hover:text-gray-300" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
+</ul>

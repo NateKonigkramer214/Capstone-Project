@@ -1,0 +1,29 @@
+﻿@page
+@model PersonalDataModel
+@{
+    ViewData["Title"] = "Personal Data";
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+}
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+<h3 class="text-2xl font-bold mb-4 text-gray-100">@ViewData["Title"]</h3>
+
+<div class="flex justify-center items-center min-h-screen bg-gray-900">
+    <div class="col-md-6">
+        <p class="text-gray-100">Your account contains personal data that you have given us. This page allows you to download or delete that data.</p>
+        <p class="text-gray-100">
+            <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
+        </p>
+        <form id="download-data" asp-page="DownloadPersonalData" method="post">
+            <button class="w-full px-4 py-2 mt-4 text-lg font-medium text-white bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400" type="submit">Download</button>
+        </form>
+        <p class="mt-4">
+            <a id="delete" asp-page="DeletePersonalData" class="w-full px-4 py-2 text-lg font-medium text-white bg-red-500 rounded-md hover:bg-red-400 focus:outline-none focus:bg-red-400">Delete</a>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

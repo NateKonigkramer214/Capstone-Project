@@ -1,0 +1,128 @@
+﻿@model Capstone.Models.BigViewModel
+@{
+    ViewData["Title"] = "Add Viewing";
+}
+
+<div class="flex flex-col items-center justify-center text-white">
+    <div class="p-2">
+        <input class="text-black" type="text" id="movieInput" name="movieInput" value="">
+        <button class="rounded border border-white p-2 hover:bg-white hover:text-black" type="button" runat="server" onclick="populateDropdown()">Search Movies</button>
+        <div id="loading" style="display:none">
+            <p>Loading Movies...</p>
+        </div>
+    </div>
+
+    <form class="mx-auto flex flex-col text-black" method="post">
+        <div id="dropdownContainer" class="flex flex-col text-center">
+            @Html.LabelFor(m => m.MoviesDropdown.SelectedMovie, "Selected Movie:", new { @class = "text-white" })
+            @Html.DropDownListFor(m => m.MoviesDropdown.SelectedMovie, new SelectList(this.Model.MoviesDropdown.MoviesList), null, new { @id = "moviesDropdown", @name = "moviesDropdown", @class = "dropdown mb-4" })
+            @Html.LabelFor(m => m.ImdbIdsDropdown.SelectedImdbId, "Selected Movie's IMDB ID:", new { @class = "text-white" })
+            @Html.DropDownListFor(m => m.ImdbIdsDropdown.SelectedImdbId, new SelectList(this.Model.ImdbIdsDropdown.ImdbIdsList), null, new { @id = "imdbId-value", @name = "imdbId-value", @class = "dropdown mb-4" })
+            @Html.LabelFor(m => m.DescriptionsDropdown.SelectedDescription, "Selected Movie's Description:", new { @class = "text-white" })
+            @Html.DropDownListFor(m => m.DescriptionsDropdown.SelectedDescription, new SelectList(this.Model.DescriptionsDropdown.DescriptionsList), null, new { @id = "description-value", @name = "description-value", @class = "dropdown mb-4"})
+        </div>
+        <div class="flex flex-col text-center">
+            @Html.LabelFor(m => m.TheatresDropdown.SelectedTheatre, "Selected Theatre:", new { @class = "text-white" })
+            @Html.DropDownListFor(m => m.TheatresDropdown.SelectedTheatre, (List<SelectListItem>)ViewData["TheatresDropdown"], null, new { @class = "text-black mb-4", @onchange="updateModel()" })
+            @Html.LabelFor(m => m.Date, "Viewing Date:", new { @class = "text-white" })
+            @Html.TextBoxFor(m => m.Date, "dd/MM/yyyy", new { @class = "mb-4", @runat = "server", @type = "date" } )
+            @Html.LabelFor(m => m.Time, "Viewing Time:", new { @class = "text-white" })
+            @Html.TextBoxFor(m => m.Time, "hh:mm tt", new { @class = "mb-4", @runat = "server",@type = "time" })
+        </div>
+        <button class="border border-white p-2 hover:bg-white hover:text-black text-white" type="submit">Add Viewing</button>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var container = $("#dropdownContainer");
+
+            var selectedValue = container.find(".dropdown").first().val();
+
+            container.find(".dropdown").val(selectedValue);
+
+            container.on("change", ".dropdown", function () {
+
+                var selectedIndex = $(this)[0].selectedIndex;
+
+                container.find(".dropdown").prop('selectedIndex', selectedIndex);
+            });
+        });
+
+        function populateDropdown() {
+            $('#loading').show();
+            console.log("https://imdb-api.com/en/API/SearchMovie/k_n7laq4z4/" + document.getElementById("movieInput").value);
+            $.ajax({
+                url: 'https://imdb-api.com/en/API/SearchMovie/k_n7laq4z4/' + document.getElementById("movieInput").value, // Replace with your controller and action method
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    var dropdown = $('#moviesDropdown');
+                    var imdbId = $('#imdbId-value');
+                    var description = $('#description-value');
+
+                    // Clear previous options
+                    dropdown.empty();
+
+                    $.each(data.results, function (i, movie) {
+                        console.log(i + " " + movie.title);
+                        dropdown.append($('<option></option>').val(movie.title).html(movie.title));
+                        imdbId.append($('<option></option>').val(movie.id).html(movie.id));
+                        description.append($('<option></option>').val(movie.description).html(movie.description));
+                    });
+                    $('#loading').hide();
+                },
+                error: function () {
+                    alert('Error occurred while retrieving data.');
+                }
+            });
+        }
+    </script>
+</div>
+
+@*<div class="d-flex flex-column align-items-center h-100 bg-danger">
+    <h1>Add Viewing</h1>
+    <form class="d-flex h-100 flex-column justify-content-evenly" method="post">
+        <div>
+            <input type="text" id="movieInput" name="movieInput" value="">
+            <button class="rounded-3" type="button" runat="server" onclick="populateDropdown()">Search Movies</button>
+            <div id="loading" style="display:none">
+                <p>Loading Movies...</p>
+            </div>
+        </div>
+        <div>
+            <select id="moviesDropdown" name="moviesDropdown">
+                <option value="">Select the movie</option>
+            </select>
+        </div>
+        <button class="rounded-3" type="submit" name="submit">Add Viewing</button>
+    </form>
+    <script>
+        function populateDropdown() {
+            $('#loading').show();
+            console.log("https://imdb-api.com/en/API/SearchMovie/k_n7laq4z4/" + document.getElementById("movieInput").value);
+            $.ajax({
+                url: 'https://imdb-api.com/en/API/SearchMovie/k_n7laq4z4/' + document.getElementById("movieInput").value, // Replace with your controller and action method
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    var dropdown = $('#moviesDropdown');
+
+                    // Clear previous options
+                    dropdown.empty();
+
+                    $.each(data.results, function (i, movie) {
+                        console.log(i + " " + movie.title);
+                        dropdown.append($('<option></option>').val(movie.title + " - " + movie.description).html(movie.title + " - " + movie.description));
+                    });
+                    $('#loading').hide();
+                },
+                error: function () {
+                    alert('Error occurred while retrieving data.');
+                }
+            });
+        }
+    </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</div>*@
